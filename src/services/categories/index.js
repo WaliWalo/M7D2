@@ -6,7 +6,7 @@ const Categories = new Model("categories");
 
 router.get("/", async (req, res, next) => {
   try {
-    const { rows } = await Categories.findOne(req.query);
+    const { rows } = await Categories.findCategoryWithCount(req.query);
     res.send(rows);
   } catch (e) {
     console.log(e);

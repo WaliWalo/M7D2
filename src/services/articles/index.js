@@ -6,8 +6,8 @@ const Articles = new Model("articles");
 
 router.get("/", async (req, res, next) => {
   try {
-    const { rows } = await Articles.findOneWithJoin(req.query);
-    res.send(rows);
+    const result = await Articles.findOneWithJoin(req.query);
+    res.send(result);
   } catch (e) {
     console.log(e);
     res.status(500).send(e);
@@ -16,7 +16,10 @@ router.get("/", async (req, res, next) => {
 
 router.get("/:id", async (req, res, next) => {
   try {
-    const { rows } = await Articles.findById(req.params.id, "article_id_PK");
+    const { rows } = await Articles.articlesFindOne(
+      req.params.id,
+      "article_id_PK"
+    );
 
     res.send(rows);
   } catch (e) {
